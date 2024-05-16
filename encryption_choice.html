@@ -48,17 +48,16 @@
 </head>
 <body>
     <div class="container">
-        <h1>Choose the type of encryption:</h1>
+        <h1>Choose encryption type:</h1>
         <form action="/process_form" method="post">
             <label>
-                <input type="radio" name="encryptionType" value="symmetric"> Symmetric
+                <input type="radio" name="encryptionType" value="symmetric"> Symmetric - AES
             </label>
             <label>
-                <input type="radio" name="encryptionType" value="asymmetric"> Asymmetric
+                <input type="radio" name="encryptionType" value="asymmetric"> Asymmetric - RSA
             </label>
             <input type="submit" value="Submit">
         </form>
-        <p>Input Recorded</p>
     </div>
 </body>
 </html>
