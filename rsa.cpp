@@ -56,6 +56,14 @@ public:
             return nullptr;
         }
 
+  // Decrypt the ciphertext using RSA private key
+        *decrypted_len = RSA_private_decrypt(ciphertext_len, ciphertext, decrypted_message, private_key, RSA_PKCS1_OAEP_PADDING);
+        if (*decrypted_len == -1) {
+            std::cerr << "Error decrypting ciphertext" << std::endl;
+            delete[] decrypted_message;
+            return nullptr;
+        }
+        return decrypted_message;
 
     }
 };
