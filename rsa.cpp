@@ -37,5 +37,25 @@ public:
             std::cerr << "Error allocating memory for ciphertext" << std::endl;
             return nullptr;
         }
+
+   // Encrypt the message using RSA public key
+        *encrypted_len = RSA_public_encrypt(message_len, message, ciphertext, public_key, RSA_PKCS1_OAEP_PADDING);
+        if (*encrypted_len == -1) {
+            std::cerr << "Error encrypting message" << std::endl;
+            delete[] ciphertext;
+            return nullptr;
+        }
+        return ciphertext;
+    }
+
+    static unsigned char* rsa_decrypt(RSA* private_key, const unsigned char* ciphertext, size_t ciphertext_len, size_t* decrypted_len) {
+        // Allocate memory for decrypted message
+        unsigned char* decrypted_message = new unsigned char[ciphertext_len];
+        if (!decrypted_message) {
+            std::cerr << "Error allocating memory for decrypted message" << std::endl;
+            return nullptr;
+        }
+
+
     }
 };
