@@ -67,6 +67,18 @@ if (!peer_dh) {
     }
 
 
+private:
+    DH* private_key;
+    DH* parameters;
+
+    void handleOpenSSLError() {
+        char* err = ERR_error_string(ERR_get_error(), nullptr);
+        std::cerr << "OpenSSL error: " << err << std::endl;
+        throw std::runtime_error("OpenSSL error occurred");
+    }
+};
+
+
 int main() {
     DHE dhe;
     std::string public_key = dhe.get_public_key();
