@@ -47,6 +47,20 @@ std::string generate_shared_key(const std::string& peer_public_key_pem) {
         BIO_free(bio);
 
 
+if (!peer_dh) {
+            handleOpenSSLError();
+        }
+
+        const BIGNUM* peer_pub_key = DH_get0_pub_key(peer_dh);
+
+        // Generate shared key
+        unsigned char shared_key[DH_size(private_key)];
+        int shared_key_len = DH_compute_key(shared_key, peer_pub_key, private_key);
+        if (shared_key_len == -1) {
+            DH_free(peer_dh);
+            handleOpenSSLError();
+        }
+
 
 
 int main() {
