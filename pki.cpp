@@ -55,6 +55,12 @@ unsigned char* sig = new unsigned char[RSA_size(private_key)];
         return signature;
     }
 
+ bool verify(const std::string& message, const std::string& signature) {
+        if (!public_key) {
+            throw std::runtime_error("Public key not available");
+        }
+
+
 };
 
 int main() {
