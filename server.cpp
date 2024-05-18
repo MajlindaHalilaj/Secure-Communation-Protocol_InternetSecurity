@@ -36,6 +36,35 @@ SSL_CTX *createCTX() {
     return ctx;
 }
 
+void handlePOSTRequest(SSL *ssl) {
+    char buffer[1024] = {0};
+    int bytes = SSL_read(ssl, buffer, sizeof(buffer));
+    if (bytes > 0) {
+        std::string request(buffer);
+        std::cout << "(Server) Received request:\n" << request << std::endl;
+
+        // Parse POST request
+        std::size_t pos = request.find("encryptionType=");
+        if (pos != std::string::npos) {
+            std::string encryptionType = request.substr(pos + 15);
+            if (encryptionType.find('&') != std::string::npos) {
+                encryptionType = encryptionType.substr(0, encryptionType.find('&'));
+            }
+            std::cout << "(Server) Selected encryption type: " << encryptionType << std::endl;
+
+            // Send response
+            std::string response = "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n";
+            response += "<html><body><h1>Encryption Type: " + encryptionType + "</h1></body></html>";
+            SSL_write(ssl, response.c_str(), response.length());
+        } else {
+            // Handle bad request
+            std::string response = "HTTP/1.1 400 Bad Request\r\nContent-Type: text/html\r\n\r\n";
+            response += "<html><body><h1>400 Bad Request</h1></body></html>";
+            SSL_write(ssl, response.c_str(), response.length());
+        }
+    }
+}
+
 int main() {
     SSL_CTX *ctx;
     SSL *ssl;
@@ -87,6 +116,9 @@ int main() {
         ERR_print_errors_fp(stderr);
         exit(EXIT_FAILURE);
     }
+
+    // Handle POST request
+    handlePOSTRequest(ssl);
 
     // Receive client hello message
     char client_msg_buf[1024] = {0};

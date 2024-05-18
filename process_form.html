@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Encryption Type Selection</title>
+    <title>Input Recorded</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -48,16 +48,17 @@
 </head>
 <body>
     <div class="container">
-        <h1>Choose encryption type: </h1>
+        <h1>Choose the type of encryption:</h1>
         <form action="/process_form" method="post">
             <label>
-                <input type="radio" name="encryptionType" value="symmetric"> Symmetric - AES
+                <input type="radio" name="encryptionType" value="symmetric"> Symmetric
             </label>
             <label>
-                <input type="radio" name="encryptionType" value="asymmetric"> Asymmetric - RSA
+                <input type="radio" name="encryptionType" value="asymmetric"> Asymmetric
             </label>
             <input type="submit" value="Submit">
         </form>
+        <p>Input Recorded</p>
     </div>
 </body>
 </html>
