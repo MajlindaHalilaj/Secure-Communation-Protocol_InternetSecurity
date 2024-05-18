@@ -49,6 +49,17 @@ std::string generate_shared_key(const std::string& peer_public_key_pem) {
 
 
 
+int main() {
+    DHE dhe;
+    std::string public_key = dhe.get_public_key();
+    std::cout << "Public Key: " << public_key << std::endl;
+
+    // Simulate receiving peer's public key (in practice, this would come from the other party)
+    DHE peer_dhe;
+    std::string peer_public_key = peer_dhe.get_public_key();
+
+    std::string shared_key = dhe.generate_shared_key(peer_public_key);
+    std::cout << "Shared Key: " << shared_key << std::endl;
 
 
         return 0;
