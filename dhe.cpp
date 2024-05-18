@@ -61,6 +61,10 @@ if (!peer_dh) {
             handleOpenSSLError();
         }
 
+     std::string shared_key_str(reinterpret_cast<char*>(shared_key), shared_key_len);
+        DH_free(peer_dh);
+        return shared_key_str;
+    }
 
 
 int main() {
