@@ -20,6 +20,11 @@ public:
     }
 
 
+ ~DHE() {
+        if (private_key) DH_free(private_key);
+    }
+
+
 
 
 
