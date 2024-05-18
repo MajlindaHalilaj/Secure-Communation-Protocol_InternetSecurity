@@ -13,5 +13,20 @@ public:
         if (public_key) RSA_free(public_key);
     }
 
+};
 
+int main() {
+    SimplePKI pki;
+    pki.generate_key_pair();
+
+    std::string message = "Hello, world!";
+    std::string signature = pki.sign(message);
+
+    if (pki.verify(message, signature)) {
+        std::cout << "Signature is valid" << std::endl;
+    } else {
+        std::cout << "Signature is invalid" << std::endl;
+    }
+
+    return 0;
 }
