@@ -61,6 +61,18 @@ unsigned char* sig = new unsigned char[RSA_size(private_key)];
         }
 
 
+unsigned char hash[SHA256_DIGEST_LENGTH];
+        SHA256((const unsigned char*)message.c_str(), message.size(), hash);
+
+        if (RSA_verify(NID_sha256, hash, SHA256_DIGEST_LENGTH, (const unsigned char*)signature.c_str(), signature.size(), public_key)) {
+            return true; // Signature is valid
+        } else {
+            return false; // Signature is invalid
+        }
+    }
+
+
+
 };
 
 int main() {
