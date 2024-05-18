@@ -49,11 +49,15 @@ int main() {
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_port = htons(PORT);
 
-    // Convert IPv4 and IPv6 addresses from text to binary form
-    if (inet_pton(AF_INET, SERVER_IP, &serv_addr.sin_addr) <= 0) {
-        perror("Invalid address/ Address not supported");
-        exit(EXIT_FAILURE);
+    // Convert IPv4 address from text to binary form
+    serv_addr.sin_addr.s_addr = inet_addr(SERVER_IP);
+
+    // Check if the address conversion was successful
+    if (serv_addr.sin_addr.s_addr == INADDR_NONE) {
+    perror("Invalid address/ Address not supported");
+    exit(EXIT_FAILURE);
     }
+
 
     // Connect to server
     if (connect(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0) {

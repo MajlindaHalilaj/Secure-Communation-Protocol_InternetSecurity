@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <cstring>
 #include <winsock2.h>
+#include <ws2tcpip.h>
 
 #define PORT 12345
 #define CERT_FILE "server.crt"
@@ -42,7 +43,7 @@ int main() {
     SSL *ssl;
     int sockfd, newsockfd;
     struct sockaddr_in serv_addr, cli_addr;
-    socklen_t clilen;
+    int clilen;
     const char *client_msg;
     const char *server_msg = "TLS_RSA_WITH_AES_256_CBC_SHA256";
 
