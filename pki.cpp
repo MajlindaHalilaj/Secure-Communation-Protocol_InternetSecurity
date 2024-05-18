@@ -20,6 +20,20 @@ void generate_key_pair() {
         BIGNUM* bn = BN_new();
         BN_set_word(bn, e);
 
+ private_key = RSA_new();
+        if (!RSA_generate_key_ex(private_key, bits, bn, nullptr)) {
+            handleOpenSSLError();
+        }
+
+        // Extract the public key from the private key
+        BIO* pub = BIO_new(BIO_s_mem());
+        PEM_write_bio_RSAPublicKey(pub, private_key);
+        public_key = PEM_read_bio_RSAPublicKey(pub, nullptr, nullptr, nullptr);
+
+        BN_free(bn);
+        BIO_free(pub);
+    }
+
 
 };
 
