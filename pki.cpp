@@ -13,6 +13,14 @@ public:
         if (public_key) RSA_free(public_key);
     }
 
+void generate_key_pair() {
+        int bits = 2048;
+        unsigned long e = RSA_F4;
+
+        BIGNUM* bn = BN_new();
+        BN_set_word(bn, e);
+
+
 };
 
 int main() {
