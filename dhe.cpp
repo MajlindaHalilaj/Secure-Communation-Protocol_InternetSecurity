@@ -24,7 +24,20 @@ public:
         if (private_key) DH_free(private_key);
     }
 
+ std::string get_public_key() {
+        // Get the public key to send to the other party
+        BIO* bio = BIO_new(BIO_s_mem());
+        if (!PEM_write_bio_DHparams(bio, parameters)) {
+            BIO_free(bio);
+            handleOpenSSLError();
+        }
 
+        BUF_MEM* bufferPtr;
+        BIO_get_mem_ptr(bio, &bufferPtr);
+        std::string public_key(bufferPtr->data, bufferPtr->length);
+        BIO_free(bio);
+        return public_key;
+    }
 
 
 
