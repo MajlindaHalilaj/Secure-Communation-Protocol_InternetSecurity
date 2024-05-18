@@ -42,6 +42,19 @@ std::string sign(const std::string& message) {
         unsigned char hash[SHA256_DIGEST_LENGTH];
         SHA256((const unsigned char*)message.c_str(), message.size(), hash);
 
+unsigned char* sig = new unsigned char[RSA_size(private_key)];
+        unsigned int sig_len;
+
+        if (!RSA_sign(NID_sha256, hash, SHA256_DIGEST_LENGTH, sig, &sig_len, private_key)) {
+            delete[] sig;
+            handleOpenSSLError();
+        }
+
+        std::string signature((char*)sig, sig_len);
+        delete[] sig;
+        return signature;
+    }
+
 };
 
 int main() {
