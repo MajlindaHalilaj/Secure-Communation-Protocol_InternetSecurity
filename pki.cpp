@@ -34,6 +34,13 @@ void generate_key_pair() {
         BIO_free(pub);
     }
 
+std::string sign(const std::string& message) {
+        if (!private_key) {
+            throw std::runtime_error("Private key not generated");
+        }
+
+        unsigned char hash[SHA256_DIGEST_LENGTH];
+        SHA256((const unsigned char*)message.c_str(), message.size(), hash);
 
 };
 
