@@ -40,6 +40,13 @@ public:
     }
 
 
+std::string generate_shared_key(const std::string& peer_public_key_pem) {
+        // Load peer's public key
+        BIO* bio = BIO_new_mem_buf(peer_public_key_pem.data(), peer_public_key_pem.size());
+        DH* peer_dh = PEM_read_bio_DHparams(bio, nullptr, nullptr, nullptr);
+        BIO_free(bio);
+
+
 
 
 
