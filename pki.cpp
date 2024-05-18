@@ -72,6 +72,18 @@ unsigned char hash[SHA256_DIGEST_LENGTH];
     }
 
 
+private:
+    RSA* private_key;
+    RSA* public_key;
+
+    void handleOpenSSLError() {
+        char* err = ERR_error_string(ERR_get_error(), nullptr);
+        std::cerr << "OpenSSL error: " << err << std::endl;
+        throw std::runtime_error("OpenSSL error occurred");
+    }
+
+
+
 
 };
 
