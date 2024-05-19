@@ -1,1 +1,1 @@
-# Secure-Communation-Protocol_InternetSecurity
+#Secure Internet Protocol developed with C++ and HTML. We have used all the cryptographic technologies that ensure confidentiality and integrity.
