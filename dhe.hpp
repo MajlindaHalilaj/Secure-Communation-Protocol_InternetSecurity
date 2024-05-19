@@ -2,7 +2,6 @@
 #define DHE_HPP
 
 #include <string>
-#include <openssl/dh.h>
 #include <openssl/pem.h>
 #include <openssl/err.h>
 
